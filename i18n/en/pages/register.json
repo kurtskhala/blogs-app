@@ -1,0 +1,14 @@
+{
+  "header": "Sign Up for BitBlogs",
+  "header-info": "Create your account to start blogging",
+  "name-label": "Name",
+  "name-placeholder": "John Doe",
+  "email-label": "Email",
+  "password-label": "Password",
+  "password-placeholder": "Create Your password",
+  "confirm-password-label": "Confirm Password",
+  "confirm-password-placeholder": "Confirm Your password",
+  "button": "Sign Up",
+  "login-text": "Already have an account?",
+  "login-Link": "Log in"
+}

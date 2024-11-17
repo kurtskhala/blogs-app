@@ -1,0 +1,14 @@
+{
+  "header": "დარეგისტრირდი BitBlogs-ზე",
+  "header-info": "შექმენი ექაუნთი რომ დაიწყო ბლოგინგი",
+  "name-label": "სახელი",
+  "name-placeholder": "ჯონ დოე",
+  "email-label": "მეილი",
+  "password-label": "პაროლი",
+  "password-placeholder": "შექმენი პაროლი",
+  "confirm-password-label": "გაიმეორე პაროლი",
+  "confirm-password-placeholder": "გაიმეორე პაროლი",
+  "button": "დარეგისტრირდი",
+  "login-text": "გაქვს უკვე ექაუნთი?",
+  "login-Link": "ავტორიზაცია"
+}

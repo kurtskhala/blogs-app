@@ -1,0 +1,11 @@
+{
+  "header": "ავტორიზაცია BitBlogs-ზე",
+  "header-info": "შეიყვანე მონაცემები რომ მოახერხო ავტორიზაცია",
+  "email-label": "მეილი",
+  "password-label": "პაროლი",
+  "password-placeholder": "შეიყვანე პაროლი",
+  "button": "ავტორიზაცია",
+  "forgot-password": "დაგავიწყდა პაროლი?",
+  "register-text": "არ გაქვს ექაუნთი?",
+  "register-Link": "დარეგისტრირდი"
+}
