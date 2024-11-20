@@ -1,0 +1,80 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "The Future of Blockchain Technology",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "author": "John Doe",
+      "date": "May 15, 2023",
+      "readTime": "5 min read",
+      "tags": ["Blockchain", "Technology", "Future"]
+    },
+    {
+      "id": 2,
+      "title": "The Future of Blockchain Technology",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "author": "John Doe",
+      "date": "May 15, 2023",
+      "readTime": "5 min read",
+      "tags": ["Blockchain", "Technology", "Future"]
+    },
+    {
+      "id": 3,
+      "title": "The Future of Blockchain Technology",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "author": "John Doe",
+      "date": "May 15, 2023",
+      "readTime": "5 min read",
+      "tags": ["Blockchain", "Technology", "Future"]
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "Blockchain"
+    },
+    {
+      "id": 2,
+      "name": "Cryptocurrency"
+    },
+    {
+      "id": 3,
+      "name": "Technology"
+    },
+    {
+      "id": 4,
+      "name": "Programming"
+    },
+    {
+      "id": 5,
+      "name": "AI"
+    },
+    {
+      "id": 6,
+      "name": "Machine Learning"
+    }
+  ],
+  "authors": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "job": "Blockchain Enthusiast",
+      "initials": "AJ",
+      "src": ""
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "job": " Crypto Analyst",
+      "initials": "BS",
+      "src": ""
+    },
+    {
+      "id": 3,
+      "name": "Carol Williams",
+      "job": "Tech Enthusiast",
+      "initials": "CW",
+      "src": ""
+    }
+  ]
+}

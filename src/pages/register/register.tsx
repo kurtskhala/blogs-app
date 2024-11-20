@@ -5,7 +5,8 @@ import AuthButton from "@/components/auth/AuthButton";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useMutation } from "@tanstack/react-query";
+import { register } from "@/supabase/auth";
 
 export const Register = () => {
   const params = useParams();
@@ -16,8 +17,13 @@ export const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const {t} = useTranslation();
 
+  const { t } = useTranslation();
+
+  const { mutate: handleRegister } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: register,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -28,11 +34,23 @@ export const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign up:", formData);
+    if (formData.password !== formData.confirmPassword) {
+      console.log("Passwords do not match");
+      return;
+    }
+
+    if (
+      !!formData.email &&
+      !!formData.password &&
+      !!formData.name &&
+      !!formData.confirmPassword
+    ) {
+      handleRegister(formData);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 ">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <AuthCard
         title={t("register-page.header")}
         description={t("register-page.header-info")}
@@ -69,8 +87,11 @@ export const Register = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
           />
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-          {t("register-page.button")}
+          <Button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700"
+          >
+            {t("register-page.button")}
           </Button>
           <AuthButton
             text={t("register-page.login-text")}

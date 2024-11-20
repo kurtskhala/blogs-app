@@ -11,6 +11,9 @@ import headerEn from "./en/pages/header.json";
 import registerPageKa from "./ka/pages/register.json";
 import registerPageEn from "./en/pages/register.json";
 
+import aboutPageKa from "./ka/pages/about.json";
+import aboutPageEn from "./en/pages/about.json";
+
 const options = {
   order: ['path'],
 
@@ -25,6 +28,7 @@ const langDetector = new LanguageDetector();
 const resources = {
   en: {
     translation: {
+      "about-page" : aboutPageEn,
       "header" : headerEn,
       "login-page" : loginPageEn,
       "register-page" : registerPageEn
@@ -32,6 +36,7 @@ const resources = {
   },
   ka: {
     translation: {
+      "about-page" : aboutPageKa,
       "header" : headerKa,
       "login-page" : loginPageKa,
       "register-page" : registerPageKa

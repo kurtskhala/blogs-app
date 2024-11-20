@@ -1,8 +1,8 @@
 {
-    "nav-home": "მთავარი",
-    "nav-write": "დაწერე",
-    "nav-about": "ჩვენს შესახებ",
-    "theme-dark" : "ბნელი",
-    "theme-light" : "ნათელი",
-    "login": "ავტორიზაცია"
-  }
+  "nav-home": "მთავარი",
+  "nav-write": "დაწერე",
+  "nav-about": "ჩვენს შესახებ",
+  "theme-dark": "ბნელი",
+  "theme-light": "ნათელი",
+  "login": "ავტორიზაცია"
+}

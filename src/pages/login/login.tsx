@@ -5,15 +5,22 @@ import AuthButton from "@/components/auth/AuthButton";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { login } from "@/supabase/auth";
+import { useMutation } from "@tanstack/react-query";
 
 export const Login = () => {
   const params = useParams();
   const lang = params.lang as string;
-  const {t} = useTranslation();
-   
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+  });
+
+  const { mutate: handleLogin } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: login,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +31,10 @@ export const Login = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Sign in:", formData);
+    e.preventDefault();    
+    if (!!formData.email && !!formData.password) {
+      handleLogin(formData);
+    }
   };
 
   return (
