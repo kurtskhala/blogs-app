@@ -5,7 +5,6 @@ import FeaturedAuthors from "./components/featured-authors/FeaturedAuthors";
 import { articles } from "../../../data.json";
 
 const Home: React.FC = () => {
-  console.log(articles);
 
   return (
     <div className="container mx-auto grid grid-cols-1 gap-8 px-4 md:grid-cols-3">

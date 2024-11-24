@@ -4,7 +4,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { userAtom } from "@/store/auth";
+import { logout } from "@/supabase/auth";
+import { useMutation } from "@tanstack/react-query";
 import i18n from "i18next";
+import { useAtom } from "jotai";
 import { Globe, Moon, Sun } from "lucide-react";
 import { useState } from "react";
 import { Trans } from "react-i18next";
@@ -17,6 +21,15 @@ const Header: React.FC = () => {
   const params = useParams();
   const [isDark, setIsDark] = useState(true);
   const lang = params.lang as string;
+  const [user, setUser] = useAtom(userAtom);
+
+  const { mutate: handleLogout } = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: logout,
+    onSuccess: () => {
+      setUser(null);
+    },
+  });
 
   const handleChangeTheme = (theme: "dark" | "light") => {
     const html = document.querySelector("html");
@@ -67,13 +80,36 @@ const Header: React.FC = () => {
       </nav>
 
       <div className="flex items-center gap-4">
-        <button className="dark:text-gray-400 hover:text-gray-800 dark:hover:text-white">S</button>
-        <Link
-          to={`/${lang}/login`}
-          className="rounded-lg bg-blue-600 px-4 py-2 dark:text-white dark:hover:bg-blue-700"
-        >
-          <Trans>header.login</Trans>
-        </Link>
+        <button className="hover:text-gray-800 dark:text-gray-400 dark:hover:text-white">
+          S
+        </button>
+        {user ? (
+          <div className="flex gap-x-6">
+            <Link
+              to={`/${lang}/profile`}
+              className="flex items-center justify-center overflow-hidden"
+            >
+              <img
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.user.id}`}
+                alt="Profile"
+                className="h-10 w-10 rounded-full bg-white transition-opacity hover:opacity-90"
+              />
+            </Link>
+            <span
+              onClick={() => handleLogout()}
+              className="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 dark:text-white dark:hover:bg-blue-700"
+            >
+              Logout
+            </span>
+          </div>
+        ) : (
+          <Link
+            to={`/${lang}/login`}
+            className="rounded-lg bg-blue-600 px-4 py-2 dark:text-white dark:hover:bg-blue-700"
+          >
+            <Trans>header.login</Trans>
+          </Link>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger className="dark:text-gray-400">
             {isDark ? <Moon size={20} /> : <Sun size={20} />}
@@ -89,7 +125,7 @@ const Header: React.FC = () => {
         </DropdownMenu>{" "}
         <DropdownMenu>
           <DropdownMenuTrigger className="dark:text-gray-400">
-            <Globe size={20}/>
+            <Globe size={20} />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem onClick={() => handleChangeLanguage("en")}>

@@ -8,6 +8,13 @@ import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import Author from "./pages/author/author";
+import { useEffect } from "react";
+import { supabase } from "./supabase";
+import AuthGuard from "./components/route-guards/auth";
+import { useSetAtom } from "jotai";
+import { userAtom } from "./store/auth";
+import Profile from "./pages/profile/profile";
+import RegisterGuard from "./components/route-guards/registration";
 
 const author = {
   name: "Jane Doe",
@@ -34,6 +41,22 @@ const author = {
 };
 
 function App() {
+  const setUser = useSetAtom(userAtom);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [setUser]);
+
   return (
     <Routes>
       <Route index element={<Navigate to="/ka" />} />
@@ -43,17 +66,32 @@ function App() {
           <Route index element={<Home />} />
           <Route path="posts/:id" element={<Blog />} />
           <Route path="create" element={<BlogCreate />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
           <Route
-            path="author/:id"
+            path="about"
             element={
-              <Author
-                author={author}
-              />
+              <AuthGuard>
+                <About />
+              </AuthGuard>
             }
           />
+          <Route
+            path="login"
+            element={
+              <RegisterGuard>
+                <Login />
+              </RegisterGuard>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RegisterGuard>
+                <Register />
+              </RegisterGuard>
+            }
+          />
+          <Route path="profile" element={<Profile />} />
+          <Route path="author/:id" element={<Author author={author} />} />
           <Route path="*" element={<h1>Not found</h1>} />
         </Route>
       </Route>

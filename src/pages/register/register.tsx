@@ -21,7 +21,7 @@ export const Register = () => {
   const { t } = useTranslation();
 
   const { mutate: handleRegister } = useMutation({
-    mutationKey: ["login"],
+    mutationKey: ["register"],
     mutationFn: register,
   });
 
