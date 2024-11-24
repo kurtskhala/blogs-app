@@ -16,10 +16,10 @@ import {
 
 export const Profile = () => {
   const [formData, setFormData] = useState({
-    username: "",
     full_name_ka: "",
     full_name_en: "",
     avatar_url: "",
+    phone: "",
   });
 
   const user = useAtomValue(userAtom);
@@ -46,10 +46,10 @@ export const Profile = () => {
     e.preventDefault();
     handleFillProfileInfo({ ...formData, id: user?.user?.id });
     setFormData({
-      username: "",
       full_name_ka: "",
       full_name_en: "",
       avatar_url: "",
+      phone: ""
     });
   };
 
@@ -62,15 +62,6 @@ export const Profile = () => {
 
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <AuthInput
-              label="Username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Enter username"
-            />
-          </div>
 
           <div className="space-y-2">
             <AuthInput
@@ -99,6 +90,16 @@ export const Profile = () => {
               value={formData.avatar_url}
               onChange={handleChange}
               placeholder="https://example.com/avatar.jpg"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <AuthInput
+              label="Phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter phone number"
             />
           </div>
         </CardContent>

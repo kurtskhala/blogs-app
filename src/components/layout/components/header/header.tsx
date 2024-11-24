@@ -13,6 +13,8 @@ import { Globe, Moon, Sun } from "lucide-react";
 import { useState } from "react";
 import { Trans } from "react-i18next";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { createAvatar } from "@dicebear/core";
+import { avataaars } from "@dicebear/collection";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +24,12 @@ const Header: React.FC = () => {
   const [isDark, setIsDark] = useState(true);
   const lang = params.lang as string;
   const [user, setUser] = useAtom(userAtom);
+  const avatar = createAvatar(avataaars, {
+    seed: "Felix",
+  });
+
+  const svg = avatar.toDataUri();
+  
 
   const { mutate: handleLogout } = useMutation({
     mutationKey: ["logout"],
@@ -90,7 +98,7 @@ const Header: React.FC = () => {
               className="flex items-center justify-center overflow-hidden"
             >
               <img
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.user.id}`}
+                src={svg}
                 alt="Profile"
                 className="h-10 w-10 rounded-full bg-white transition-opacity hover:opacity-90"
               />
