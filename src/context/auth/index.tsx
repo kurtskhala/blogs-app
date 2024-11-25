@@ -1,3 +1,4 @@
+import { Session } from "@supabase/supabase-js";
 import { createContext, PropsWithChildren, useState } from "react";
 
 type AuthContextType = any;
@@ -5,7 +6,7 @@ type AuthContextType = any;
 export const AuthContext = createContext<AuthContextType>(null);
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<Session>();
   console.log(user);
   
   const handleSetUser = (user: any) => {
