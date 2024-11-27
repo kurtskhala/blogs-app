@@ -90,7 +90,14 @@ function App() {
               </RegisterGuard>
             }
           />
-          <Route path="profile" element={<Profile />} />
+          <Route
+            path="profile"
+            element={
+              <AuthGuard>
+                <Profile />
+              </AuthGuard>
+            }
+          />
           <Route path="author/:id" element={<Author author={author} />} />
           <Route path="*" element={<h1>Not found</h1>} />
         </Route>

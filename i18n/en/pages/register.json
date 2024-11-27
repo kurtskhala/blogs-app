@@ -10,5 +10,20 @@
   "confirm-password-placeholder": "Confirm Your password",
   "button": "Sign Up",
   "login-text": "Already have an account?",
-  "login-Link": "Log in"
+  "login-Link": "Log in",
+  "validation": {
+    "name-required": "Name is required",
+    "name-min-length": "Name must be at least 2 characters long",
+    "name-max-length": "Name cannot exceed 50 characters",
+
+    "email-required": "Email is required",
+    "email-invalid": "Please enter a valid email address",
+
+    "password-required": "Password is required",
+    "password-min-length": "Password must be at least 8 characters long",
+    "password-max-length": "Password cannot exceed 50 characters",
+
+    "confirm-password-required": "Please confirm your password",
+    "passwords-match": "Passwords must match"
+  }
 }

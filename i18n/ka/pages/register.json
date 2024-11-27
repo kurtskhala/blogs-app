@@ -10,5 +10,20 @@
   "confirm-password-placeholder": "გაიმეორე პაროლი",
   "button": "დარეგისტრირდი",
   "login-text": "გაქვს უკვე ექაუნთი?",
-  "login-Link": "ავტორიზაცია"
+  "login-Link": "ავტორიზაცია",
+  "validation": {
+    "name-required": "სახელი აუცილებელია",
+    "name-min-length": "სულ ცოტა ორი ასო უნდა შეიყვანო",
+    "name-max-length": "50 ასოზე მეტი არ უნდა იყოს",
+    
+    "email-required": "მეილი აუცილებელია",
+    "email-invalid": "შეიყვანე ვალიდური მეილი",
+    
+    "password-required": "პაროლი აუცილებელია",
+    "password-min-length": "პაროლი არ უნდა იყოს 8 ასოზე ნაკლები",
+    "password-max-length": "პაროლი არ უნდა იყოს 5ო ასოზე გრძელი",
+    
+    "confirm-password-required": "შეიყვანე პაროლი თავიდან",
+    "passwords-match": "პაროლი უნდა ემთხვეოდეს"
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import AuthInput from "@/components/auth/AuthInput";
 import { useMutation } from "@tanstack/react-query";
@@ -13,20 +13,36 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-export const Profile = () => {
-  const [formData, setFormData] = useState({
-    full_name_ka: "",
-    full_name_en: "",
-    avatar_url: "",
-    phone: "",
-  });
+type FormData = {
+  full_name_ka: string;
+  full_name_en: string;
+  avatar_url: string;
+  phone: string;
+};
 
+const Profile = () => {
   const user = useAtomValue(userAtom);
+  const { t } = useTranslation();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      full_name_ka: "",
+      full_name_en: "",
+      avatar_url: "",
+      phone: "",
+    },
+  });
 
   useEffect(() => {
     if (user) {
-      getProfileInfo(user?.user.id).then((res) => console.log(res));
+      getProfileInfo(user?.user.id).then((res) => res);
     }
   }, [user]);
 
@@ -35,78 +51,153 @@ export const Profile = () => {
     mutationFn: fillProfileInfo,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleFillProfileInfo({ ...formData, id: user?.user?.id });
-    setFormData({
-      full_name_ka: "",
-      full_name_en: "",
-      avatar_url: "",
-      phone: ""
-    });
+  const onSubmit = (fieldValues: FormData) => {
+    handleFillProfileInfo({ ...fieldValues, id: user?.user?.id });
   };
 
   return (
     <Card className="mx-auto mt-8 w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Profile Settings</CardTitle>
-        <CardDescription>Update your profile information</CardDescription>
+        <CardTitle>{t("profile-page.title")}</CardTitle>
+        <CardDescription>{t("profile-page.description")}</CardDescription>
       </CardHeader>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
-
           <div className="space-y-2">
-            <AuthInput
-              label="Full Name (Georgian)"
+            <Controller
               name="full_name_ka"
-              value={formData.full_name_ka}
-              onChange={handleChange}
-              placeholder="სრული სახელი"
+              control={control}
+              rules={{
+                required: t("profile-page.validation.full-name-ka-required"),
+                minLength: {
+                  value: 2,
+                  message: t("profile-page.validation.full-name-ka-min-length"),
+                },
+                maxLength: {
+                  value: 50,
+                  message: t("profile-page.validation.full-name-ka-max-length"),
+                },
+                pattern: {
+                  value: /^[ა-ჰ\s]+$/,
+                  message: t("profile-page.validation.full-name-ka-pattern"),
+                },
+              }}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <>
+                    <AuthInput
+                      label={t("profile-page.full-name-ka-label")}
+                      name="full_name_ka"
+                      value={value}
+                      onChange={onChange}
+                      placeholder={t("profile-page.full-name-ka-placeholder")}
+                    />
+                    {errors.full_name_ka && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.full_name_ka.message}
+                      </p>
+                    )}
+                  </>
+                );
+              }}
             />
           </div>
 
           <div className="space-y-2">
-            <AuthInput
-              label="Full Name (English)"
+            <Controller
               name="full_name_en"
-              value={formData.full_name_en}
-              onChange={handleChange}
-              placeholder="Full name"
+              control={control}
+              rules={{
+                required: t("profile-page.validation.full-name-en-required"),
+                minLength: {
+                  value: 2,
+                  message: t("profile-page.validation.full-name-en-min-length"),
+                },
+                maxLength: {
+                  value: 50,
+                  message: t("profile-page.validation.full-name-en-max-length"),
+                },
+                pattern: {
+                  value: /^[a-zA-Z\s]+$/,
+                  message: t("profile-page.validation.full-name-en-pattern"),
+                },
+              }}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <>
+                    <AuthInput
+                      label={t("profile-page.full-name-en-label")}
+                      name="full_name_en"
+                      value={value}
+                      onChange={onChange}
+                      placeholder={t("profile-page.full-name-en-placeholder")}
+                    />
+                    {errors.full_name_en && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.full_name_en.message}
+                      </p>
+                    )}
+                  </>
+                );
+              }}
             />
           </div>
 
           <div className="space-y-2">
-            <AuthInput
-              label="Avatar URL"
+            <Controller
               name="avatar_url"
-              value={formData.avatar_url}
-              onChange={handleChange}
-              placeholder="https://example.com/avatar.jpg"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <AuthInput
+                    label={t("profile-page.avatar-url-label")}
+                    name="avatar_url"
+                    value={value}
+                    onChange={onChange}
+                    placeholder={t("profile-page.avatar-url-placeholder")}
+                  />
+                );
+              }}
             />
           </div>
 
           <div className="space-y-2">
-            <AuthInput
-              label="Phone"
+            <Controller
               name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter phone number"
+              control={control}
+              rules={{
+                required: t("profile-page.validation.full-name-en-required"),
+              }}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => {
+                console.log(error);
+                return (
+                  <>
+                    <AuthInput
+                      label={t("profile-page.phone-label")}
+                      name="phone"
+                      value={value}
+                      onChange={onChange}
+                      placeholder={t("profile-page.phone-placeholder")}
+                    />
+                    {errors.phone && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </>
+                );
+              }}
             />
           </div>
         </CardContent>
 
         <CardFooter>
           <Button type="submit" className="w-full">
-            Update Profile
+            {t("profile-page.update-button")}
           </Button>
         </CardFooter>
       </form>

@@ -1,0 +1,32 @@
+{
+  "title": "პროფილის პარამეტრები",
+  "description": "განაახლეთ თქვენი პროფილის ინფორმაცია",
+
+  "full-name-ka-label": "სრული სახელი (ქართული)",
+  "full-name-ka-placeholder": "სრული სახელი",
+
+  "full-name-en-label": "სრული სახელი (ინგლისური)",
+  "full-name-en-placeholder": "Full name",
+
+  "avatar-url-label": "ავატარის URL",
+  "avatar-url-placeholder": "https://example.com/avatar.jpg",
+
+  "phone-label": "ტელეფონის ნომერი",
+  "phone-placeholder": "შეიყვანეთ ტელეფონის ნომერი",
+
+  "update-button": "პროფილის განახლება",
+
+  "validation": {
+    "full-name-ka-required": "ქართული სახელი სავალდებულოა",
+    "full-name-ka-min-length": "ქართული სახელი უნდა იყოს მინიმუმ 2 სიმბოლო",
+    "full-name-ka-max-length": "ქართული სახელი არ უნდა აღემატებოდეს 50 სიმბოლოს",
+    "full-name-ka-pattern": "ქართული სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს",
+
+    "full-name-en-required": "ინგლისური სახელი სავალდებულოა",
+    "full-name-en-min-length": "ინგლისური სახელი უნდა იყოს მინიმუმ 2 სიმბოლო",
+    "full-name-en-max-length": "ინგლისური სახელი არ უნდა აღემატებოდეს 50 სიმბოლოს",
+    "full-name-en-pattern": "ინგლისური სახელი უნდა შეიცავდეს მხოლოდ ინგლისურ ასოებს",
+
+    "phone-invalid": "ტელეფონის შეყვანა აუცილებელია"
+  }
+}

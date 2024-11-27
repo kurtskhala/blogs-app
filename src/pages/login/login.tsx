@@ -2,11 +2,16 @@ import { Button } from "@/components/ui/button";
 import AuthCard from "@/components/auth/AuthCard";
 import AuthInput from "@/components/auth/AuthInput";
 import AuthButton from "@/components/auth/AuthButton";
-import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login } from "@/supabase/auth";
 import { useMutation } from "@tanstack/react-query";
+import { Controller, useForm } from "react-hook-form";
+
+type FieldValues = {
+  email: string;
+  password: string;
+};
 
 export const Login = () => {
   const params = useParams();
@@ -14,32 +19,27 @@ export const Login = () => {
   const lang = params.lang as string;
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const { mutate: handleLogin } = useMutation({
     mutationKey: ["login"],
     mutationFn: login,
     onSuccess: () => {
-      navigate(`/${lang}/`)
-    }
+      navigate(`/${lang}/`);
+    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();    
-    if (!!formData.email && !!formData.password) {
-      handleLogin(formData);
-      
-    }
+  const onSubmit = (fieldValues: FieldValues) => {
+    handleLogin(fieldValues);
   };
 
   return (
@@ -48,22 +48,72 @@ export const Login = () => {
         title={t("login-page.header")}
         description={t("login-page.header-info")}
       >
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <AuthInput
-            label={t("login-page.email-label")}
-            type="email"
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <Controller
             name="email"
-            placeholder="john@example.com"
-            value={formData.email}
-            onChange={handleChange}
+            control={control}
+            rules={{
+              required: t("register-page.validation.email-required"),
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: t("register-page.validation.email-invalid"),
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => {
+              console.log(error);
+              return (
+                <>
+                  <AuthInput
+                    label={t("login-page.email-label")}
+                    type="email"
+                    name="email"
+                    placeholder="john@example.com"
+                    value={value}
+                    onChange={onChange}
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </>
+              );
+            }}
           />
-          <AuthInput
-            label={t("login-page.password-label")}
-            type="password"
+          <Controller
             name="password"
-            placeholder={t("login-page.password-placeholder")}
-            value={formData.password}
-            onChange={handleChange}
+            control={control}
+            rules={{
+              required: t("register-page.validation.password-required"),
+              minLength: {
+                value: 8,
+                message: t("register-page.validation.password-min-length"),
+              },
+              maxLength: {
+                value: 50,
+                message: t("register-page.validation.password-max-length"),
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => {
+              console.log(error);
+              return (
+                <>
+                  <AuthInput
+                    label={t("login-page.password-label")}
+                    type="password"
+                    name="password"
+                    placeholder={t("login-page.password-placeholder")}
+                    value={value}
+                    onChange={onChange}
+                  />
+                  {errors.password && (
+                    <p className="mt-1 text-sm text-red-500">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </>
+              );
+            }}
           />
           <Button
             type="submit"

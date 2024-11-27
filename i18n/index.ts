@@ -14,6 +14,9 @@ import registerPageEn from "./en/pages/register.json";
 import aboutPageKa from "./ka/pages/about.json";
 import aboutPageEn from "./en/pages/about.json";
 
+import profilePageKa from "./ka/pages/profile.json";
+import profilePageEn from "./en/pages/profile.json";
+
 const options = {
   order: ['path'],
 
@@ -31,7 +34,8 @@ const resources = {
       "about-page" : aboutPageEn,
       "header" : headerEn,
       "login-page" : loginPageEn,
-      "register-page" : registerPageEn
+      "register-page" : registerPageEn,
+      "profile-page" : profilePageEn
     }
   },
   ka: {
@@ -39,7 +43,8 @@ const resources = {
       "about-page" : aboutPageKa,
       "header" : headerKa,
       "login-page" : loginPageKa,
-      "register-page" : registerPageKa
+      "register-page" : registerPageKa,
+      "profile-page" : profilePageKa
     }
   }
 };

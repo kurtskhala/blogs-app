@@ -1,0 +1,34 @@
+{
+  "title": "Profile Settings",
+  "description": "Update your profile information",
+
+  "full-name-ka-label": "Full Name (Georgian)",
+  "full-name-ka-placeholder": "სრული სახელი",
+
+  "full-name-en-label": "Full Name (English)",
+  "full-name-en-placeholder": "Full name",
+
+  "avatar-url-label": "Avatar URL",
+  "avatar-url-placeholder": "https://example.com/avatar.jpg",
+
+  "phone-label": "Phone Number",
+  "phone-placeholder": "Enter phone number",
+
+  "update-button": "Update Profile",
+
+  "validation": {
+    "full-name-ka-required": "Georgian full name is required",
+    "full-name-ka-min-length": "Georgian full name must be at least 2 characters long",
+    "full-name-ka-max-length": "Georgian full name cannot exceed 50 characters",
+    "full-name-ka-pattern": "Georgian full name must contain only Georgian letters",
+
+    "full-name-en-required": "English full name is required",
+    "full-name-en-min-length": "English full name must be at least 2 characters long",
+    "full-name-en-max-length": "English full name cannot exceed 50 characters",
+    "full-name-en-pattern": "English full name must contain only English letters",
+
+    "avatar-url-invalid": "Please enter a valid URL",
+
+    "phone-invalid": "Phone is required"
+  }
+}
