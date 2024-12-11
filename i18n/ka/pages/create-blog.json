@@ -1,0 +1,19 @@
+{
+  "title": "შექმენი ბლოგი",
+
+  "title-ka-label": "სათაური (Georgian)",
+  "title-ka-placeholder": "სათაური",
+
+  "title-en-label": "სათაური (English)",
+  "title-en-placeholder": "Title",
+
+  "description-ka-label": "აღწერა (Georgian)",
+  "description-ka-placeholder": "აღწერა",
+
+  "description-en-label": "აღწერა (English)",
+  "description-en-placeholder": "აღწერა",
+
+  "image-url-label": "ფოტო",
+
+  "create-button": "შექმენი"
+}

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "supabase": "npx supabase gen types --lang=typescript --project-id iwqrqnecvxbmzrxapbyn > src/supabase/supabase.types.ts"
+    "supabase": "npx supabase gen types --lang=typescript --project-id ihrmnjmfxumnlpcbhhqg > src/supabase/supabase.types.ts"
   },
   "dependencies": {
     "@dicebear/avataaars": "^9.2.2",

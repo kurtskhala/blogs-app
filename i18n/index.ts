@@ -17,6 +17,9 @@ import aboutPageEn from "./en/pages/about.json";
 import profilePageKa from "./ka/pages/profile.json";
 import profilePageEn from "./en/pages/profile.json";
 
+import createBlogKa from "./ka/pages/create-blog.json";
+import createBlogEn from "./en/pages/create-blog.json";
+
 const options = {
   order: ['path'],
 
@@ -35,7 +38,8 @@ const resources = {
       "header" : headerEn,
       "login-page" : loginPageEn,
       "register-page" : registerPageEn,
-      "profile-page" : profilePageEn
+      "profile-page" : profilePageEn,
+      "create-blog-page" : createBlogEn
     }
   },
   ka: {
@@ -44,7 +48,8 @@ const resources = {
       "header" : headerKa,
       "login-page" : loginPageKa,
       "register-page" : registerPageKa,
-      "profile-page" : profilePageKa
+      "profile-page" : profilePageKa,
+      "create-blog-page" : createBlogKa
     }
   }
 };

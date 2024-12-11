@@ -1,0 +1,19 @@
+{
+  "title": "Create Blog",
+
+  "title-ka-label": "Title (Georgian)",
+  "title-ka-placeholder": "სათაური",
+
+  "title-en-label": "Title (English)",
+  "title-en-placeholder": "Title",
+
+  "description-ka-label": "Description (Georgian)",
+  "description-ka-placeholder": "აღწერა",
+
+  "description-en-label": "Description (English)",
+  "description-en-placeholder": "Description",
+
+  "image-url-label": "Image URL",
+
+  "create-button": "Create"
+}
