@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import AuthInput from "@/components/auth/AuthInput";
-// import { useMutation } from "@tanstack/react-query";
-// import { fillProfileInfo } from "@/supabase/account";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/store/auth";
 import {
@@ -42,11 +40,6 @@ const BlogCreate = () => {
       image_url: null,
     },
   });
-
-  // const { mutate: handleFillProfileInfo } = useMutation({
-  //   mutationKey: ["fill-profile-info"],
-  //   mutationFn: fillProfileInfo,
-  // });
 
   const onSubmit = (fieldValues: FormData) => {
     if (fieldValues?.image_url) {
