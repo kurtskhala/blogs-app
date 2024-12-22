@@ -4,16 +4,9 @@ import AuthInput from "@/components/auth/AuthInput";
 import AuthButton from "@/components/auth/AuthButton";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
-import { register } from "@/supabase/auth";
 import { Controller, useForm } from "react-hook-form";
-
-type FieldValues = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { useRegister } from "@/hooks/auth/useRegister";
+import { RegisterCredentials } from "@/types/auth";
 
 
 export const Register = () => {
@@ -34,12 +27,9 @@ export const Register = () => {
 
   const { t } = useTranslation();
 
-  const { mutate: handleRegister } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
-  });
+  const { mutate: handleRegister } = useRegister();
 
-  const onSubmit = (fieldValues: FieldValues) => {
+  const onSubmit = (fieldValues: RegisterCredentials) => {
     if (fieldValues.password !== fieldValues.confirmPassword) {
       console.log("Passwords do not match");
       return;

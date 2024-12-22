@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import AuthInput from "@/components/auth/AuthInput";
-import { useMutation } from "@tanstack/react-query";
-import { fillProfileInfo, getProfileInfo } from "@/supabase/account";
+import { getProfileInfo } from "@/supabase/account";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/store/auth";
 import {
@@ -15,13 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-type FormData = {
-  full_name_ka: string;
-  full_name_en: string;
-  avatar_url: string;
-  phone: string;
-};
+import { useProfileUpdate } from "@/hooks/profile/useProfilleUpdate";
+import { ProfileFormData } from "@/types/profile";
 
 const Profile = () => {
   const user = useAtomValue(userAtom);
@@ -46,12 +40,9 @@ const Profile = () => {
     }
   }, [user]);
 
-  const { mutate: handleFillProfileInfo } = useMutation({
-    mutationKey: ["fill-profile-info"],
-    mutationFn: fillProfileInfo,
-  });
+  const { mutate: handleFillProfileInfo } = useProfileUpdate();
 
-  const onSubmit = (fieldValues: FormData) => {
+  const onSubmit = (fieldValues: ProfileFormData) => {
     handleFillProfileInfo({ ...fieldValues, id: user?.user?.id });
   };
 

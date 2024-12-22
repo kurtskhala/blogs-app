@@ -5,8 +5,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { userAtom } from "@/store/auth";
-import { logout } from "@/supabase/auth";
-import { useMutation } from "@tanstack/react-query";
 import i18n from "i18next";
 import { useAtom } from "jotai";
 import { Globe, Moon, Sun } from "lucide-react";
@@ -15,6 +13,7 @@ import { Trans } from "react-i18next";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { createAvatar } from "@dicebear/core";
 import { avataaars } from "@dicebear/collection";
+import { useLogout } from "@/hooks/auth/useLogout";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Header: React.FC = () => {
   const params = useParams();
   const [isDark, setIsDark] = useState(true);
   const lang = params.lang as string;
-  const [user, setUser] = useAtom(userAtom);
+  const [user] = useAtom(userAtom);
   const avatar = createAvatar(avataaars, {
     seed: "Felix",
   });
@@ -31,13 +30,8 @@ const Header: React.FC = () => {
   const svg = avatar.toDataUri();
   
 
-  const { mutate: handleLogout } = useMutation({
-    mutationKey: ["logout"],
-    mutationFn: logout,
-    onSuccess: () => {
-      setUser(null);
-    },
-  });
+  const { mutate: handleLogout } = useLogout();
+
 
   const handleChangeTheme = (theme: "dark" | "light") => {
     const html = document.querySelector("html");

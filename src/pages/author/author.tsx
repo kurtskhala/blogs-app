@@ -138,10 +138,7 @@ const Author = ({ author }: AuthorProfileProps) => {
                 key={article.id}
                 title={article.title}
                 excerpt={article.excerpt}
-                author={article.author}
-                date={article.date}
-                readTime={article.readTime}
-                tags={article.tags}
+                createdAt={article.date}
               />
             );
           })}

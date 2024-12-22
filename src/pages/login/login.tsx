@@ -2,20 +2,14 @@ import { Button } from "@/components/ui/button";
 import AuthCard from "@/components/auth/AuthCard";
 import AuthInput from "@/components/auth/AuthInput";
 import AuthButton from "@/components/auth/AuthButton";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { login } from "@/supabase/auth";
-import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
-
-type FieldValues = {
-  email: string;
-  password: string;
-};
+import { useLogin } from "@/hooks/auth/useLogin";
+import { AuthCredentials } from "@/types/auth";
 
 export const Login = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const lang = params.lang as string;
   const { t } = useTranslation();
 
@@ -30,18 +24,11 @@ export const Login = () => {
     },
   });
 
-  const { mutate: handleLogin } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: login,
-    onSuccess: () => {
-      navigate(`/${lang}/`);
-    },
-  });
+  const { mutate: handleLogin } = useLogin();
 
-  const onSubmit = (fieldValues: FieldValues) => {
+  const onSubmit = (fieldValues: AuthCredentials) => {
     handleLogin(fieldValues);
   };
-
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <AuthCard

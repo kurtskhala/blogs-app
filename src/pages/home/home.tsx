@@ -4,43 +4,17 @@ import FeaturedAuthors from "./components/featured-authors/FeaturedAuthors";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import AuthInput from "@/components/auth/AuthInput";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/supabase";
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect } from "react";
 import qs from "qs";
-import underscore from "underscore";
+import { useBlogs } from "@/hooks/blogs/useFetchBlogs";
 
-type Blog = {
-  created_at: string;
-  [key: `title_${string}`]: string;
-  id: number;
-  image_url: string;
-  [key: `description_${string}`]: string;
-  user_id: string;
-};
 
 type BlogsFilterFormValues = {
   searchText: string;
 };
 
-const fetchBlogs = async (
-  lang: string,
-  searchText?: string,
-): Promise<Blog[]> => {
-  const { data, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .ilike(`title_${lang}`, `%${searchText || ""}%`);
-
-  if (error) {
-    throw error;
-  }
-
-  return data as Blog[];
-};
 
 const Home: React.FC = () => {
-  const [filteredBlogs, setFilteredBlogs] = useState<Blog[] | null>(null);
   const params = useParams();
   const lang = params.lang as string;
 
@@ -50,15 +24,17 @@ const Home: React.FC = () => {
       .map(([key, value]) => `${key}=${value}`)
       .join("&"),
   ) as BlogsFilterFormValues;
+
   const { control, watch } = useForm<BlogsFilterFormValues>({
     defaultValues: parsedQueryParams,
   });
-  const { data: blogs } = useQuery<Blog[]>({
-    queryKey: ["blogs", lang, parsedQueryParams.searchText],
-    queryFn: () => fetchBlogs(lang, parsedQueryParams.searchText),
-  });
 
   const watchedSearchText = watch("searchText");
+  const { data: blogs } = useBlogs({ 
+    lang, 
+    searchText: parsedQueryParams.searchText 
+  });
+
 
   useEffect(() => {
     if (watchedSearchText) {
@@ -74,29 +50,6 @@ const Home: React.FC = () => {
       setSearchParams({});
     }
   }, [watchedSearchText, setSearchParams]);
-
-  const fetchBlogs2 = useCallback(
-    underscore.debounce((watchedSearchText: string) => {
-      supabase
-        .from("blogs")
-        .select("*")
-        .ilike(`title_${lang}`, `%${watchedSearchText}%`)
-        .throwOnError()
-        .then((res) => {
-          const blogsList = res.data as unknown as Blog[];
-          setFilteredBlogs(blogsList);
-        });
-    }, 500),
-    [],
-  );
-
-  useEffect(() => {
-    if (watchedSearchText?.length > 2) {
-      fetchBlogs2(watchedSearchText);
-    }
-  }, [watchedSearchText, fetchBlogs]);
-
-  const displayedBlogs = filteredBlogs || blogs;  
 
   return (
     <div>
@@ -125,7 +78,7 @@ const Home: React.FC = () => {
           <FeaturedAuthors />
         </div>
         <div className="col-span-2 space-y-8">
-          {displayedBlogs?.map((blog) => {
+          {blogs?.map((blog) => {
             const blogImageUrl = `${import.meta.env.VITE_SUPABASE_BLOG_IMAGES_STORAGE_URL}${blog?.image_url}`;
             return (
               <BlogCard
